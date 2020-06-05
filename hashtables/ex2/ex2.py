@@ -4,38 +4,28 @@ class Ticket:
         self.source = source
         self.destination = destination
 
-# use a doubly linked list instead?
-
 def reconstruct_trip(tickets, length):
     
     # prepopulate an array with the same number elements as tickets
-    # the last element of the route will be "NONE"
-    route = [None] * length
-    route[-1] = "NONE"
+    destinations = [None] * length
     
+    destination_lookup = dict()
+
     # go through each ticket and store its immediate destination
-    destinations = dict()
-
     for ticket in tickets:
-        destiations[source] = destinations  
+        destination_lookup[ticket.source] = ticket.destination
     
-    # pick a random ticket and see what destinations both precede and come after it
-    start_ticket = tickets[0]
+    # the starting ticket has a source of "NONE". Start there to build a chain
+    next_destination = destination_lookup["NONE"]
 
-    # initialize an array to work out preceding and following destinations
-    # since we don't know the location of start_ticket in the overall route, make the array twice as big as necessary and put the starting destination in the middle
-    destinations_holder = [None] * 2 - 1
-    destinations_holder[length - 1] = start_ticket.source
+    # look up each ticket's next destination and add it to the destinations array
+    # stop when the next destination is actually the string "NONE".
+    for current_leg in range(0, length):
 
-    # previous_destination = destinations[start_ticket.source]
+        # record next destination
+        destinations[current_leg] = next_destination        
 
-    # while previous_destination:
-    #     destinations_before
+        # retrieve next destination
+        next_destination = destination_lookup[next_destination]
 
-    next_destination = destinations[start_ticket.destination]
-
-    while next_destination:
-        next_destinations
-        next_destination = 
-
-    return route
+    return destinations
